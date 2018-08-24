@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.projeto.ubercom.domain.Categoria;
+import com.projeto.ubercom.domain.Cidade;
+import com.projeto.ubercom.domain.Estado;
 import com.projeto.ubercom.domain.Produto;
 import com.projeto.ubercom.repositores.CategoriaRepository;
+import com.projeto.ubercom.repositores.CidadeRepository;
+import com.projeto.ubercom.repositores.EstadoRepository;
 import com.projeto.ubercom.repositores.ProdutoRepository;
 
 @SpringBootApplication
@@ -21,6 +25,11 @@ public class UbercomApplication implements CommandLineRunner{
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
+	@Autowired
+	private EstadoRepository estadoRepository;	
+	
+	@Autowired
+	private CidadeRepository cidadeRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(UbercomApplication.class, args);
@@ -43,8 +52,21 @@ public class UbercomApplication implements CommandLineRunner{
       p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
       p3.getCategorias().addAll(Arrays.asList(cat1));
       
+      Estado est1 = new Estado(null,"Minas Gerais");
+      Estado est2 = new Estado(null,"São Paulo");
+      
       categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
       produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
+      
+      Cidade c1 = new Cidade(null,"Uberlandia",est1);
+      Cidade c2 = new Cidade(null,"São Paulo",est2);
+      Cidade c3 = new Cidade(null,"Campinas",est2);
+      
+       est1.getCidades().addAll(Arrays.asList(c1));
+       est2.getCidades().addAll(Arrays.asList(c2,c3));
+
+       estadoRepository.saveAll(Arrays.asList(est1,est2));
+       cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 		
 	}
 }
