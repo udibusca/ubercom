@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.projeto.ubercom.domain.Categoria;
 import com.projeto.ubercom.domain.Cidade;
+import com.projeto.ubercom.domain.Cliente;
+import com.projeto.ubercom.domain.Endereco;
 import com.projeto.ubercom.domain.Estado;
 import com.projeto.ubercom.domain.Produto;
+import com.projeto.ubercom.domain.enums.TipoCliente;
 import com.projeto.ubercom.repositores.CategoriaRepository;
 import com.projeto.ubercom.repositores.CidadeRepository;
+import com.projeto.ubercom.repositores.ClienteRepository;
+import com.projeto.ubercom.repositores.EnderecoRepository;
 import com.projeto.ubercom.repositores.EstadoRepository;
 import com.projeto.ubercom.repositores.ProdutoRepository;
 
@@ -83,7 +88,7 @@ public class UbercomApplication implements CommandLineRunner {
 	       cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
 	       
 	       clienteRepository.saveAll(Arrays.asList(cli1));
-	       enderecoRepository.saveAll(Arrays.asList(e1,e2));		
+	       enderecoRepository.saveAll(Arrays.asList(e1,e2));
 		
 	}
 }
