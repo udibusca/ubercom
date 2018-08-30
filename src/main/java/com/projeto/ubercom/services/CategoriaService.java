@@ -3,11 +3,13 @@ package com.projeto.ubercom.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.projeto.ubercom.domain.Categoria;
 import com.projeto.ubercom.repositores.CategoriaRepository;
-import com.projeto.ubercom.services.exception.ObjectNotFoundException;
+import com.projeto.ubercom.services.exceptions.DataIntegrityException;
+import com.projeto.ubercom.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -30,5 +32,19 @@ public class CategoriaService {
 		find(obj.getId());
 		return repo.save(obj);
 	}
+
+	/**
+	 * @param id
+	 */
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+		}
+	}
+	
 	
 }

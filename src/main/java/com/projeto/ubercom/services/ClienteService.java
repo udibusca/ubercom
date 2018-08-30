@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.projeto.ubercom.domain.Cliente;
 import com.projeto.ubercom.repositores.ClienteRepository;
-import com.projeto.ubercom.services.exception.ObjectNotFoundException;
+import com.projeto.ubercom.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ClienteService {

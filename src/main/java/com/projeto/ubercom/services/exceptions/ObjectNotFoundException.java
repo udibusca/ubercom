@@ -1,4 +1,4 @@
-package com.projeto.ubercom.services.exception;
+package com.projeto.ubercom.services.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

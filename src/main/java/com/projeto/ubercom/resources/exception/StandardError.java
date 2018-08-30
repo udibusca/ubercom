@@ -14,11 +14,11 @@ public class StandardError implements Serializable {
 	 * @param status
 	 * @param msg
 	 */
-	public StandardError(Long timestamp, Integer status, String msg) {
+	public StandardError(Integer status, String msg,Long timestamp) {
 		super();
-		this.timestamp = timestamp;
 		this.status = status;
 		this.msg = msg;
+		this.timestamp = timestamp;
 	}
 	public Long getTimestamp() {
 		return timestamp;
