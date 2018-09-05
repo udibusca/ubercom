@@ -21,6 +21,10 @@ import com.projeto.ubercom.domain.Categoria;
 import com.projeto.ubercom.dto.CategoriaDTO;
 import com.projeto.ubercom.services.CategoriaService;
 
+/**
+ * @author andre
+ *
+ */
 @RestController
 @RequestMapping(value="/categorias")
 public class CategoriaResources {
@@ -28,12 +32,20 @@ public class CategoriaResources {
 	@Autowired
 	private CategoriaService service;
 
+	/**
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
 		Categoria obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	/**
+	 * @param objDto
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) {
 		Categoria obj = service.fromDto(objDto);
@@ -43,6 +55,11 @@ public class CategoriaResources {
 		return ResponseEntity.created(uri).build(); 
 	}
 	
+	/**
+	 * @param objDto
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
 		Categoria obj = service.fromDto(objDto);
@@ -51,12 +68,19 @@ public class CategoriaResources {
 		return ResponseEntity.noContent().build();
 	}
 	
+	/**
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	/**
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<CategoriaDTO>> findAll() {
 		List<Categoria> list = service.findAll();
@@ -64,6 +88,13 @@ public class CategoriaResources {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
+	/**
+	 * @param page
+	 * @param linesPerPage
+	 * @param orderBy
+	 * @param direction
+	 * @return
+	 */
 	@RequestMapping(value="/page", method=RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
