@@ -15,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.projeto.ubercom.domain.Cidade;
 import com.projeto.ubercom.domain.Cliente;
 import com.projeto.ubercom.domain.Endereco;
+import com.projeto.ubercom.domain.enums.Perfil;
 import com.projeto.ubercom.domain.enums.TipoCliente;
 import com.projeto.ubercom.dto.ClienteDTO;
 import com.projeto.ubercom.dto.ClienteNewDTO;
 import com.projeto.ubercom.repositores.ClienteRepository;
 import com.projeto.ubercom.repositores.EnderecoRepository;
+import com.projeto.ubercom.security.UserSS;
+import com.projeto.ubercom.services.exceptions.AuthorizationException;
 import com.projeto.ubercom.services.exceptions.DataIntegrityException;
 import com.projeto.ubercom.services.exceptions.ObjectNotFoundException;
 
@@ -44,6 +47,12 @@ public class ClienteService {
 	 * @return
 	 */
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}		
+		
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
