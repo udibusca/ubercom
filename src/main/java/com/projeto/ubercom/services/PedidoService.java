@@ -42,6 +42,9 @@ public class PedidoService {
 	@Autowired
 	private ClienteService clienteService;
 	
+	@Autowired
+	private EmailService emailService;
+	
 	/**
 	 * @param id
 	 * @return
@@ -75,10 +78,17 @@ public class PedidoService {
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());
-		System.out.println(obj);
+		emailService.sendOrderConfirmationEmail(obj);
 		return obj;
 	}
 	
+	/**
+	 * @param page
+	 * @param linesPerPage
+	 * @param orderBy
+	 * @param direction
+	 * @return
+	 */
 	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		UserSS user = UserService.authenticated();
 		if (user == null) {
