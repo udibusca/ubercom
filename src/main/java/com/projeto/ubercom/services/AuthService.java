@@ -15,6 +15,9 @@ public class AuthService {
  	@Autowired
 	private ClienteRepository clienteRepository;
 	
+ 	@Autowired
+	private EmailService emailService;
+ 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
 	
@@ -31,7 +34,7 @@ public class AuthService {
 		cliente.setSenha(pe.encode(newPass));
 		
 		clienteRepository.save(cliente);
-		//emailService.sendNewPasswordEmail(cliente, newPass);
+		emailService.sendNewPasswordEmail(cliente, newPass);
 	}
  	private String newPassword() {
 		char[] vet = new char[10];
